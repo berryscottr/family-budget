@@ -1,2 +1,2 @@
-# family-budget
+# foxley-berry-bot
 Family Budgeting Discord App

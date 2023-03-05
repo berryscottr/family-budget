@@ -10,7 +10,7 @@ import (
 func (bot Data) SetDir() Data {
 	bot.Dir, bot.Err = filepath.Abs(".")
 	if bot.Err != nil {
-		log.Err(bot.Err).Msg("failed to set magic-8ball directory")
+		log.Err(bot.Err).Msg("failed to set foxley-berry-bot directory")
 	}
 	return bot
 }
@@ -19,19 +19,19 @@ func (bot Data) SetDir() Data {
 func (bot Data) Start() {
 	bot.GoBot, bot.Err = discordgo.New("Bot " + bot.Token)
 	if bot.Err != nil {
-		log.Err(bot.Err).Msg("failed to instantiate magic-8ball bot")
+		log.Err(bot.Err).Msg("failed to instantiate foxley-berry-bot bot")
 		return
 	}
 	bot.User, bot.Err = bot.GoBot.User(UserID)
 	if bot.Err != nil {
-		log.Err(bot.Err).Msg("failed to set magic-8ball user id")
+		log.Err(bot.Err).Msg("failed to set foxley-berry-bot user id")
 		return
 	}
 	bot.GoBot.AddHandler(bot.MessageHandler)
 	bot.Err = bot.GoBot.Open()
 	if bot.Err != nil {
-		log.Err(bot.Err).Msg("failed to start magic-8ball listener")
+		log.Err(bot.Err).Msg("failed to start foxley-berry-bot listener")
 		return
 	}
-	log.Info().Msg("magic-8ball listening")
+	log.Info().Msg("foxley-berry-bot listening")
 }
