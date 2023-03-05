@@ -1,6 +1,7 @@
 package bot
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
@@ -24,8 +25,11 @@ func (bot Data) HandleSummary(s *discordgo.Session, m *discordgo.MessageCreate) 
 	log.Info().Msg("handling finance summary post creation")
 	bot = bot.CreatePlaidClient()
 	log.Info().Msg("Plaid client created")
+	ctx := context.Background()
+	accounts := bot.Plaid.PlaidApi.AccountsGet(ctx)
+	log.Info().Msg("Plaid accounts retrieved")
 	message := discordgo.MessageSend{
-		Content: fmt.Sprintf("Hello, %s. Your financial summary: %v", m.Author.Mention(), bot.Plaid),
+		Content: fmt.Sprintf("Hello, %s. Your financial summary: %v", m.Author.Mention(), accounts),
 	}
 	_, bot.Err = s.ChannelMessageSendComplex(m.ChannelID, &message)
 	if bot.Err != nil {
