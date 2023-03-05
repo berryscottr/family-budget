@@ -2,6 +2,7 @@ package bot
 
 import (
 	"github.com/bwmarrin/discordgo"
+	"github.com/plaid/plaid-go/plaid"
 )
 
 const (
@@ -21,6 +22,8 @@ type Data struct {
 	Token string
 	// Dir for the bot to track
 	Dir string
+	// Plaid client
+	Plaid *plaid.APIClient
 }
 
 // Methods for the bot to use
@@ -33,4 +36,6 @@ type Methods interface {
 	MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate)
 	// HandleSummary for handling the summary of finances
 	HandleSummary(s *discordgo.Session, m *discordgo.MessageCreate)
+	// CreatePlaidClient for Plaid API
+	CreatePlaidClient() Data
 }

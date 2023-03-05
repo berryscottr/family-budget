@@ -1,9 +1,11 @@
 package bot
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/bwmarrin/discordgo"
 	"github.com/rs/zerolog/log"
-	"strings"
 )
 
 // MessageHandler for interpreting which function to launch from message contents
@@ -20,8 +22,10 @@ func (bot Data) MessageHandler(s *discordgo.Session, m *discordgo.MessageCreate)
 // HandleSummary for handling the summary of finances
 func (bot Data) HandleSummary(s *discordgo.Session, m *discordgo.MessageCreate) {
 	log.Info().Msg("handling finance summary post creation")
+	bot = bot.CreatePlaidClient()
+	log.Info().Msg("Plaid client created")
 	message := discordgo.MessageSend{
-		Content: "Finance Summary",
+		Content: fmt.Sprintf("Hello, %s. Your financial summary: %v", m.Author.Mention(), bot.Plaid),
 	}
 	_, bot.Err = s.ChannelMessageSendComplex(m.ChannelID, &message)
 	if bot.Err != nil {
