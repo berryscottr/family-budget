@@ -23,7 +23,16 @@ type Data struct {
 	// Dir for the bot to track
 	Dir string
 	// Plaid client
-	Plaid *plaid.APIClient
+	Plaid PlaidAPI
+}
+
+type PlaidAPI struct {
+	// Plaid client ID
+	ClientID string
+	// Plaid secret
+	Secret string
+	// Plaid client
+	Client *plaid.APIClient
 }
 
 // Methods for the bot to use

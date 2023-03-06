@@ -26,7 +26,7 @@ func (bot Data) HandleSummary(s *discordgo.Session, m *discordgo.MessageCreate) 
 	bot = bot.CreatePlaidClient()
 	log.Info().Msg("Plaid client created")
 	ctx := context.Background()
-	accounts := bot.Plaid.PlaidApi.AccountsGet(ctx)
+	accounts := bot.Plaid.Client.PlaidApi.AccountsBalanceGet(ctx)
 	log.Info().Msg("Plaid accounts retrieved")
 	message := discordgo.MessageSend{
 		Content: fmt.Sprintf("Hello, %s. Your financial summary: %v", m.Author.Mention(), accounts),
